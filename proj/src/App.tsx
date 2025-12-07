@@ -15,23 +15,18 @@ import ResetPassword from "./components/ResetPassword";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 
-// Kiểu params cho route /auth/:type
-type AuthParams = {
-  type?: string;
-};
-
 // Component modal Login / Register
 const AuthPage = () => {
-  const { type } = useParams<AuthParams>();
+  const { type } = useParams<{ type: string }>();
   const navigate = useNavigate();
 
   return (
     <Modal onClose={() => navigate("/")}>
       {type === "login" ? (
         <Login onClose={() => navigate("/")} />
-      ) : (
+      ) : type === "register" ? (
         <Register onClose={() => navigate("/")} />
-      )}
+      ) : null}
     </Modal>
   );
 };
@@ -53,7 +48,7 @@ const ResetPasswordPage = () => {
 
   return (
     <Modal onClose={() => navigate("/")}>
-      <ResetPassword />
+      <ResetPassword onClose={() => navigate("/")} />
     </Modal>
   );
 };
